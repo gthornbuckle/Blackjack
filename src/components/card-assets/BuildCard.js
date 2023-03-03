@@ -207,19 +207,29 @@ function BuildCard(props) {
     }
   }
 
-  return (
-    <div className="card" onClick={props.clickCard}>
-      <div className="cardInfoTop">
-        <p className="cardValueTop" style={getFontColour(props.suit)}>{props.value}</p>
-        <img className="cardIconTop" src={getSuitIcon(props.suit)} alt={props.id} />
+  if (props.flipped === true){
+    return (
+      <div className="card" onClick={props.clickCard}>
+        <div className="cardInfoTop">
+          <p className="cardValueTop" style={getFontColour(props.suit)}>{props.value}</p>
+          <img className="cardIconTop" src={getSuitIcon(props.suit)} alt={props.id} />
+        </div>
+        <div className="cardBody">{displayIcons(props.value)}</div>
+        <div className="cardInfoBottom">
+          <p className="cardValueBottom" style={getFontColour(props.suit)}>{props.value}</p>
+          <img className="cardIconBottom" src={getSuitIcon(props.suit)} alt={props.id} />
+        </div>
+
       </div>
-      <div className="cardBody">{displayIcons(props.value)}</div>
-      <div className="cardInfoBottom">
-        <p className="cardValueBottom" style={getFontColour(props.suit)}>{props.value}</p>
-        <img className="cardIconBottom" src={getSuitIcon(props.suit)} alt={props.id} />
+    );
+  }
+  else{
+    return (
+      <div className="cardBack" onClick={props.clickCard}>
+        <img src={cardBack} alt="card-back" />
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default BuildCard;

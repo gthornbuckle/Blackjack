@@ -24,7 +24,7 @@ font-size: 3rem;
 
 .card{
     background-color: white;
-    border-radius: 20px;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -32,6 +32,21 @@ font-size: 3rem;
     width: 200px;
     height: 300px;
     position: relative;
+}
+
+.cardBack{
+    background-color: white;
+    border-radius: 10px;
+    width: 200px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cardBack img{
+    border-radius: 10px;
+    max-width:195px;
 }
 
 .cardBody{
