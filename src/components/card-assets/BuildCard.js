@@ -4,6 +4,7 @@ import hearts from "./hearts.svg"
 import diamonds from "./diamonds.svg"
 import spades from "./spades.svg"
 import clubs from "./clubs.svg"
+import cardBack from "./cardback.svg"
 
 function BuildCard(props) {
   const getSuitIcon = suit => {
@@ -207,7 +208,7 @@ function BuildCard(props) {
   }
 
   return (
-    <div className="card">
+    <div className="card" onClick={props.clickCard}>
       <div className="cardInfoTop">
         <p className="cardValueTop" style={getFontColour(props.suit)}>{props.value}</p>
         <img className="cardIconTop" src={getSuitIcon(props.suit)} alt={props.id} />

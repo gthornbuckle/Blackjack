@@ -9,7 +9,6 @@ function Game() {
       <header className="header">
         <h1>Blackjack</h1>
       </header>
-      {/* <button onClick={DisplayDeck}>Start</button> */}
       <DisplayDeck />
     </div>
   );
