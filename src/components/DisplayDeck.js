@@ -8,10 +8,10 @@ function DisplayDeck() {
 
     return (
         <div className="cardStack">
-            <BuildCard suit={deck[0].suit} value={deck[0].value} id={deck[0].id} />
-            <BuildCard suit={deck[1].suit} value={deck[1].value} id={deck[1].id} />
-            <BuildCard suit={deck[2].suit} value={deck[2].value} id={deck[2].id} />
-            <BuildCard suit={deck[3].suit} value={deck[3].value} id={deck[3].id} />
+            <BuildCard suit={deck[0].suit} value={deck[0].value} />
+            <BuildCard suit={deck[1].suit} value={deck[1].value} />
+            <BuildCard suit={deck[2].suit} value={deck[2].value} />
+            <BuildCard suit={deck[3].suit} value={deck[3].value} />
             {/* <BuildCard suit={deck[4].suit} value={deck[4].value} id={deck[4].id} />
             <BuildCard suit={deck[5].suit} value={deck[5].value} id={deck[5].id} />
             <BuildCard suit={deck[6].suit} value={deck[6].value} id={deck[6].id} />

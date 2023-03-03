@@ -15,61 +15,77 @@ function BuildCard(props) {
     }
   }
 
-  const getIconCount = value => {
-    const suitIcons = [];
+  const displayIcons = value => {
 
-     if (value >= 2 && value <= 10){
-      for (let i = 0; i < value; i++){
+    const generateIconColumn = iconCount =>{
+      const suitIcons = [];
+      for (let i = 0; i < iconCount; i++){
         let suitIcon = [getSuitIcon(props.suit), props.id];
         suitIcons.push(suitIcon);
       }
+      return suitIcons.map(item => <img src={item[0]} alt={item[1]} />);
+    }
 
-      return suitIcons.map(item => <img src={item[0]} alt={item[1]}/>);
-     }
-     else{
-      switch(value){
-        case 'A': return <img src={getSuitIcon(props.suit)} alt={props.id} />
-      }
-     }
-  }
-
-  const getIconLayout = value => {
-    let iconLayout = {};
+    let iconLayout ={};
 
     switch(value){
-      case 'A': iconLayout = {
-        width: '50%',
-        display: 'flex',
-        alignSelf: 'center'
-      }
-      return iconLayout;
+      case 'A':
+        iconLayout = {
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center'}
+        return <div className="iconArea">
+          <div style={iconLayout}></div>
+          <div style={iconLayout}><img src={getSuitIcon(props.suit)} alt={props.id} /></div>
+          <div style={iconLayout}></div>
+          </div>;
       case 2:
-      case 3: iconLayout = {
-        width: '30%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        flexGrow: 1,
-        paddingTop: 10,
-        paddingBottom: 10,
-        alignSelf: 'center'
-      }
-      return iconLayout;
-      case 4: iconLayout = {
-        width: '70%',
-        display: 'grid',
-        gridTemplateColumns: 'repeat(2)',
-        gap: 30,
-        gridAutoFlow: 'row',
-        gridAutoRows: '200px 50px',
-        alignSelf: 'center'
-      }
-      return iconLayout;
+        iconLayout = {
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between'}
+        return <div className="iconArea">
+        <div style={iconLayout}></div>
+        <div style={iconLayout}>{generateIconColumn(2)}</div>
+        <div style={iconLayout}></div>
+        </div>;
+      case 3:
+        iconLayout = {
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between'}
+        return <div className="iconArea">
+        <div style={iconLayout}></div>
+        <div style={iconLayout}>{generateIconColumn(3)}</div>
+        <div style={iconLayout}></div>
+        </div>;
+      case 4:
+        iconLayout = {
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between'}
+        return <div className="iconArea">
+        <div style={iconLayout}>{generateIconColumn(2)}</div>
+        <div style={iconLayout}></div>
+        <div style={iconLayout}>{generateIconColumn(2)}</div>
+        </div>;
+      case 5:
+      case 6:
+      case 7:
+      case 8:
+      case 9:
+      case 10:
+      case 'J':
+      case 'Q':
+      case 'K':  
     }
   }
 
   const getFontColour = suit => {
-
     if(suit === 'hearts' || suit === 'diamonds'){
       let fontColour = { color: "#C44117"}
       return fontColour;
@@ -82,10 +98,11 @@ function BuildCard(props) {
   return (
     <div className="card">
       <p className="cardValueTop" style={getFontColour(props.suit)}>{props.value}</p>
-      <div clasName="cardIcons" style={getIconLayout(props.value)}>
+      <div className="cardBody">{displayIcons(props.value)}</div>
+      {/*<div className="cardIcons" style={getIconLayout(props.value)}>
         {getIconCount(props.value)}
-        {/* <img src={getSuitIcon(props.suit)} alt={props.id} /> */}
-      </div>
+        {/* <img src={getSuitIcon(props.suit)} alt={props.id} />
+      </div>*/}
       <p className="cardValueBottom" style={getFontColour(props.suit)}>{props.value}</p>
     </div>
   );
