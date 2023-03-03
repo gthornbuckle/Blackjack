@@ -31,7 +31,6 @@ font-size: 3rem;
     justify-content: center;
     width: 200px;
     height: 300px;
-
     position: relative;
 }
 
@@ -39,24 +38,44 @@ font-size: 3rem;
     position: absolute;
 }
 
-.card p{
-    font-size: 32px;
-    font-family: Arial, Helvetica, sans-serif;
-}
-.cardValueTop{
-    align-self:flex-start;
-    margin: 0px;
-    top: 10px;
-    left: 10px;
-    position: absolute;
+.card img{
+    width: 35px;
+    height: 35px;
 }
 
-.cardValueBottom{
-    align-self:flex-end;
-    margin: 0px;
-    bottom: 10px;
-    right: 10px;
+.card p{
+    font-size: 32px;
+    font-family: 'Rockwell';
+    font-weight: 100px;
+    margin: 0;
+}
+
+.cardIconTop{
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.cardInfoTop{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: absolute;
+    top: 10px;
+    left: 5px;
+}
+
+.cardIconBottom{
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.cardInfoBottom{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    bottom: 10px;
+    right: 5px;
     transform: rotate(180deg);
 }
 
@@ -64,12 +83,7 @@ font-size: 3rem;
     display: flex;
     flex-direction: row;
     align-content: center;
-    width: 150px;
-    height: 260px;
+    width: 110px;
+    height: 240px;
 }
 
-.card img{
-    padding: 10px;
-    width: 40px;
-    height: 40px;
-}

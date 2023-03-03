@@ -26,7 +26,8 @@ function BuildCard(props) {
       return suitIcons.map(item => <img src={item[0]} alt={item[1]} />);
     }
 
-    let iconLayout ={};
+    let iconLayout = {};
+    let iconLayoutOffset = {};
 
     switch(value){
       case 'A':
@@ -34,6 +35,7 @@ function BuildCard(props) {
           width: '100%',
           display: 'flex',
           flexDirection: 'column',
+          alignItems: 'center',
           justifyContent: 'center'}
         return <div className="iconArea">
           <div style={iconLayout}></div>
@@ -45,6 +47,7 @@ function BuildCard(props) {
           width: '100%',
           display: 'flex',
           flexDirection: 'column',
+          alignItems: 'center',
           justifyContent: 'space-between'}
         return <div className="iconArea">
         <div style={iconLayout}></div>
@@ -56,6 +59,7 @@ function BuildCard(props) {
           width: '100%',
           display: 'flex',
           flexDirection: 'column',
+          alignItems: 'center',
           justifyContent: 'space-between'}
         return <div className="iconArea">
         <div style={iconLayout}></div>
@@ -67,6 +71,7 @@ function BuildCard(props) {
           width: '100%',
           display: 'flex',
           flexDirection: 'column',
+          alignItems: 'center',
           justifyContent: 'space-between'}
         return <div className="iconArea">
         <div style={iconLayout}>{generateIconColumn(2)}</div>
@@ -74,11 +79,117 @@ function BuildCard(props) {
         <div style={iconLayout}>{generateIconColumn(2)}</div>
         </div>;
       case 5:
+        iconLayout = {
+          width: '90%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'space-between'}
+        iconLayoutOffset = {
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          postion: 'absolute'}
+        return <div className="iconArea">
+        <div style={iconLayout}>{generateIconColumn(2)}</div>
+        <div style={iconLayoutOffset}>{generateIconColumn(1)}</div>
+        <div style={iconLayout}>{generateIconColumn(2)}</div>
+        </div>;
       case 6:
+        iconLayout = {
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'space-between'}
+        return <div className="iconArea">
+        <div style={iconLayout}>{generateIconColumn(3)}</div>
+        <div style={iconLayout}></div>
+        <div style={iconLayout}>{generateIconColumn(3)}</div>
+        </div>
       case 7:
+        iconLayout = {
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'space-between'}
+          iconLayoutOffset = {
+            width: '100%',
+            height: 140,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            postion: 'absolute'}
+        return <div className="iconArea">
+        <div style={iconLayout}>{generateIconColumn(3)}</div>
+        <div style={iconLayoutOffset}>{generateIconColumn(1)}</div>
+        <div style={iconLayout}>{generateIconColumn(3)}</div>
+        </div>
       case 8:
+        iconLayout = {
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'space-between'}
+          iconLayoutOffset = {
+            width: '100%',
+            height: 200,
+            display: 'flex',
+            flexDirection: 'column',
+            alignSelf: 'center',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            postion: 'absolute'}
+        return <div className="iconArea">
+        <div style={iconLayout}>{generateIconColumn(3)}</div>
+        <div style={iconLayoutOffset}>{generateIconColumn(2)}</div>
+        <div style={iconLayout}>{generateIconColumn(3)}</div>
+        </div>
       case 9:
+        iconLayout = {
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'space-between'}
+          iconLayoutOffset = {
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            postion: 'absolute'}
+        return <div className="iconArea">
+        <div style={iconLayout}>{generateIconColumn(4)}</div>
+        <div style={iconLayoutOffset}>{generateIconColumn(1)}</div>
+        <div style={iconLayout}>{generateIconColumn(4)}</div>
+        </div>
       case 10:
+        iconLayout = {
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'space-between'}
+          iconLayoutOffset = {
+            width: '100%',
+            height: 270,
+            display: 'flex',
+            flexDirection: 'column',
+            alignSelf: 'center',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            postion: 'absolute'}
+        return <div className="iconArea">
+        <div style={iconLayout}>{generateIconColumn(4)}</div>
+        <div style={iconLayoutOffset}>{generateIconColumn(2)}</div>
+        <div style={iconLayout}>{generateIconColumn(4)}</div>
+        </div>
       case 'J':
       case 'Q':
       case 'K':  
@@ -97,13 +208,15 @@ function BuildCard(props) {
 
   return (
     <div className="card">
-      <p className="cardValueTop" style={getFontColour(props.suit)}>{props.value}</p>
+      <div className="cardInfoTop">
+        <p className="cardValueTop" style={getFontColour(props.suit)}>{props.value}</p>
+        <img className="cardIconTop" src={getSuitIcon(props.suit)} alt={props.id} />
+      </div>
       <div className="cardBody">{displayIcons(props.value)}</div>
-      {/*<div className="cardIcons" style={getIconLayout(props.value)}>
-        {getIconCount(props.value)}
-        {/* <img src={getSuitIcon(props.suit)} alt={props.id} />
-      </div>*/}
-      <p className="cardValueBottom" style={getFontColour(props.suit)}>{props.value}</p>
+      <div className="cardInfoBottom">
+        <p className="cardValueBottom" style={getFontColour(props.suit)}>{props.value}</p>
+        <img className="cardIconBottom" src={getSuitIcon(props.suit)} alt={props.id} />
+      </div>
     </div>
   );
 }
