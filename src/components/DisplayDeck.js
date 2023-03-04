@@ -4,7 +4,7 @@ import BuildCard from "./card-assets/BuildCard";
 import "../style.css";
 
 function DisplayDeck() {
-    let oneSuitTemp = BuildDeck().filter(value => value.suit.includes('clubs'));
+    let oneSuitTemp = BuildDeck().filter(val => val.suit.includes('spades'));
 
     const [deck,setDeck] = useState(oneSuitTemp);
 
@@ -25,7 +25,7 @@ function DisplayDeck() {
             {deck.map(card => <BuildCard suit={card.suit}
             value={card.value}
             id={card.id}
-            key={card.id}
+            key={`${card.id}-${card.flipState}`}
             flipped={card.flipState}
             clickCard={() => {clickedCard(card.id)}}/>)}
         </div>

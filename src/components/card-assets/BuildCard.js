@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 import "../../style.css";
 import hearts from "./hearts.svg"
 import diamonds from "./diamonds.svg"
 import spades from "./spades.svg"
 import clubs from "./clubs.svg"
 import cardBack from "./cardback.svg"
+
 
 function BuildCard(props) {
   const getSuitIcon = suit => {
@@ -24,7 +26,7 @@ function BuildCard(props) {
         let suitIcon = [getSuitIcon(props.suit), props.id];
         suitIcons.push(suitIcon);
       }
-      return suitIcons.map(item => <img src={item[0]} alt={item[1]} />);
+      return suitIcons.map((item, i) => <img key={item+i} src={item[0]} alt={item[1]} draggable="false" />);
     }
 
     let iconLayout = {};
@@ -40,7 +42,7 @@ function BuildCard(props) {
           justifyContent: 'center'}
         return <div className="iconArea">
           <div style={iconLayout}></div>
-          <div style={iconLayout}><img src={getSuitIcon(props.suit)} alt={props.id} /></div>
+          <div style={iconLayout}><img src={getSuitIcon(props.suit)} alt={props.id} draggable="false" /></div>
           <div style={iconLayout}></div>
           </div>;
       case 2:
@@ -207,29 +209,26 @@ function BuildCard(props) {
     }
   }
 
-  if (props.flipped === true){
-    return (
-      <div className="card" onClick={props.clickCard}>
+  const [rotation, setRotation] = useState(0);
+
+  return (
+    <motion.div className="card" animate={{ rotateX: rotation }} transition={{ duration: 0.1}} onClick={ () => setRotation(rotation + 180) }>
+      <div className="cardFace front">
         <div className="cardInfoTop">
           <p className="cardValueTop" style={getFontColour(props.suit)}>{props.value}</p>
-          <img className="cardIconTop" src={getSuitIcon(props.suit)} alt={props.id} />
+          <img className="cardIconTop" src={getSuitIcon(props.suit)} alt={props.id} draggable="false" />
         </div>
         <div className="cardBody">{displayIcons(props.value)}</div>
         <div className="cardInfoBottom">
           <p className="cardValueBottom" style={getFontColour(props.suit)}>{props.value}</p>
-          <img className="cardIconBottom" src={getSuitIcon(props.suit)} alt={props.id} />
+          <img className="cardIconBottom" src={getSuitIcon(props.suit)} alt={props.id} draggable="false" />
         </div>
-
       </div>
-    );
-  }
-  else{
-    return (
-      <div className="cardBack" onClick={props.clickCard}>
-        <img src={cardBack} alt="card-back" />
+      <div className="cardFace back">
+          <img src={cardBack} alt="card-back" draggable="false" />
       </div>
-    );
-  }
+    </motion.div>
+  );
 }
 
 export default BuildCard;
