@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import BuildCard from "./card-assets/BuildCard";
 import "../style.css";
 
 function Hand(props) {
-    let dealtDeck = props.currentHand;
+    let deck = props.dealtDeck;
 
     return (
         <div className="currentHand">
-            {dealtDeck.map(card => <BuildCard suit={card.suit}
+            {deck.map(card => <BuildCard suit={card.suit}
             value={card.value}
             id={card.id}
             key={`${card.id}-${card.flipState}`}

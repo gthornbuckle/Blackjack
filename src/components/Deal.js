@@ -7,7 +7,6 @@ function Deal(deck){
 
     const currentDecks =[];
     currentDecks.push(dealtDeck, deck);
-    console.log(currentDecks);
     return currentDecks;
 }
 
