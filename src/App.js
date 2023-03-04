@@ -4,7 +4,14 @@ import Game from "./components/Game";
 // import { motion } from "framer-motion";
 
 function App() {
-  return  <Game />
+  return  (
+  <div>
+    <header className="header">
+      <h1>Blackjack</h1>
+    </header>
+    <Game />
+  </div>
+  );
 }
 
 export default App;

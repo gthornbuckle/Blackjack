@@ -119,14 +119,14 @@ function BuildCard(props) {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'space-between'}
-          iconLayoutOffset = {
-            width: '100%',
-            height: 140,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            postion: 'absolute'}
+        iconLayoutOffset = {
+          width: '100%',
+          height: 140,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+          postion: 'absolute'}
         return <div className="iconArea">
         <div style={iconLayout}>{generateIconColumn(3)}</div>
         <div style={iconLayoutOffset}>{generateIconColumn(1)}</div>
@@ -139,15 +139,15 @@ function BuildCard(props) {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'space-between'}
-          iconLayoutOffset = {
-            width: '100%',
-            height: 200,
-            display: 'flex',
-            flexDirection: 'column',
-            alignSelf: 'center',
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            postion: 'absolute'}
+        iconLayoutOffset = {
+          width: '100%',
+          height: 200,
+          display: 'flex',
+          flexDirection: 'column',
+          alignSelf: 'center',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+          postion: 'absolute'}
         return <div className="iconArea">
         <div style={iconLayout}>{generateIconColumn(3)}</div>
         <div style={iconLayoutOffset}>{generateIconColumn(2)}</div>
@@ -160,13 +160,13 @@ function BuildCard(props) {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'space-between'}
-          iconLayoutOffset = {
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            postion: 'absolute'}
+        iconLayoutOffset = {
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+          postion: 'absolute'}
         return <div className="iconArea">
         <div style={iconLayout}>{generateIconColumn(4)}</div>
         <div style={iconLayoutOffset}>{generateIconColumn(1)}</div>
@@ -179,15 +179,15 @@ function BuildCard(props) {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'space-between'}
-          iconLayoutOffset = {
-            width: '100%',
-            height: 270,
-            display: 'flex',
-            flexDirection: 'column',
-            alignSelf: 'center',
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            postion: 'absolute'}
+        iconLayoutOffset = {
+          width: '100%',
+          height: 270,
+          display: 'flex',
+          flexDirection: 'column',
+          alignSelf: 'center',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+          postion: 'absolute'}
         return <div className="iconArea">
         <div style={iconLayout}>{generateIconColumn(4)}</div>
         <div style={iconLayoutOffset}>{generateIconColumn(2)}</div>
@@ -201,18 +201,18 @@ function BuildCard(props) {
 
   const getFontColour = suit => {
     if(suit === 'hearts' || suit === 'diamonds'){
-      let fontColour = { color: "#C44117"}
+      let fontColour = { color: "#C44117"};
       return fontColour;
     }else{
-      let fontColour = { color: "#120F25"}
+      let fontColour = { color: "#120F25"};
       return fontColour;
     }
   }
-
-  const [rotation, setRotation] = useState(0);
-
+  // Motion div for animated card flip
+  // <motion.div className="card" style={props.rotationVal} animate={{ rotateX: 180 }} transition={{ duration: 0.1}}></motion.div>
+ 
   return (
-    <motion.div className="card" animate={{ rotateX: rotation }} transition={{ duration: 0.1}} onClick={ () => setRotation(rotation + 180) }>
+    <div className="card" style={props.rot}>
       <div className="cardFace front">
         <div className="cardInfoTop">
           <p className="cardValueTop" style={getFontColour(props.suit)}>{props.value}</p>
@@ -227,7 +227,7 @@ function BuildCard(props) {
       <div className="cardFace back">
           <img src={cardBack} alt="card-back" draggable="false" />
       </div>
-    </motion.div>
+    </div>
   );
 }
 

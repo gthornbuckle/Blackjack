@@ -22,10 +22,7 @@ function Game() {
   }
 
   return (
-    <div>
-      <header className="header">
-        <h1>Blackjack</h1>
-      </header>
+    <div className="playArea">
       <button onClick={ () => {updateHand(remainingDeck)}}>Hit me</button>
       <div className="dealerHand">
       </div>
