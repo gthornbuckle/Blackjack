@@ -44,16 +44,24 @@ function Game() {
       <button onClick={onShow}>Display Deck</button>
       <button onClick={ () => {updatePlayerHand(remainingDeck)}}>Hit me</button>
       <button onClick={ () => {updateDealerHand(remainingDeck)}}>Deal for dealer</button>
-      <div className="dealerZone">
-        <div className="tableDeck">
-          {hasRender && <DisplayDeck />}
+      <div className="table">
+        <div className="deckZone">
+          <p className="tableLabel">Deck</p>
+          <div className="tableDeck">
+            {hasRender && <DisplayDeck />}
+          </div>
         </div>
-        <div className="dealerHand">
-          <DealerHand dealtDeck={dealerHand} />
+        <div className="dealerHandZone">
+          <p className="tableLabel">DealerHand</p>
+          <div className="dealerHand">
+            <DealerHand dealtDeck={dealerHand} />
+          </div>
         </div>
-      </div>
-      <div className="currentHand">
-        <Hand dealtDeck={currentHand} />
+        <div className="playerHandZone">
+          <div className="currentHand">
+            <Hand dealtDeck={currentHand} />
+          </div>
+        </div>
       </div>
     </div>
   );

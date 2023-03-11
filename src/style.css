@@ -20,18 +20,60 @@ body {
     flex-direction: column;
 }
 
-.dealerZone{
-    padding-top: 50px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+.table{
+    margin: 10px;
+    height: 800px;
+    border: solid rgb(177, 154, 23);
+    border-radius: 10px;
+    position: relative;
+}
+
+.tableLabel{
+    color: rgb(177, 154, 23);
+    position: absolute;
+    bottom: 1%;
+    left: 5%;
+}
+
+.deckZone{
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    height: 320px;
+    width: 220px;
+    border: solid rgb(177, 154, 23);
+    border-radius: 10px;
+}
+
+.dealerHandZone{
+    position: absolute;
+    top: 5%;
+    right: 10%;
+    height: 320px;
+    width: 220px;
+    border: solid rgb(177, 154, 23);
+    border-radius: 10px;
+}
+
+.playerHandZone{
+    position: absolute;
+    top: 60%;
+    left:30%;
+}
+
+.dealerHand{
+    position: absolute;
+    top: -30%;
+}
+
+.tableDeck{
+    position: absolute;
+    left: 5%;
+    right: 40%;
 }
 
 .currentHand{
     position: absolute;
-    left: 0px;
-    top: 400px;
-    transform: rotateZ(-50deg);
 }
 
 .card {
@@ -39,8 +81,6 @@ body {
     height: 300px;
     position:absolute;
     transform-style: preserve-3d;
-    transform-origin: center 120%;
-
 }
 
 .cardFace{

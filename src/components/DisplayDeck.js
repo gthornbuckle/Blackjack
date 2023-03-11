@@ -4,30 +4,39 @@ import "../style.css";
 import cardBack from "./card-assets/cardback.svg"
 
 function DisplayDeck() {
+
+    const rotRand = () => {
+        let rotVal = Math.floor(Math.random() * (5 - 0 + 1) + 0);
+        return rotVal;
+    }
     
-    const deck = {
-        hidden: { y: -200 },
-        visible: { y: 0,
+
+    const deckStyle = {
+        hidden: { y: -300 },
+        visible: { y: -200,
         transition: {
             delayChildren: 0.2,
-            staggerChildren: 0.1
+            staggerChildren: 0.15
         }}
     };
       
-    const card = {
-        hidden: { y: -300 },
-        visible: { y: 0 }
+    const cardStyle = () =>{
+        const card = {
+        hidden: { y: -600, rotateZ: 0},
+        visible: { y: 200, rotateZ: rotRand()}}
+
+        return card;
     };
 
     return (
         <motion.div
         className="container"
-        variants={deck}
+        variants={deckStyle}
         initial="hidden"
         animate="visible"
         > 
         {[...Array(20).keys()].map((index) => (
-            <motion.div className="card" key={index} variants={card}>
+            <motion.div className="card" key={index} variants={cardStyle()}>
                 <div className="cardFace back" style={{backfaceVisibility: "visible"}}>
                     <img src={cardBack} alt="card-back" draggable="false" />
                 </div>

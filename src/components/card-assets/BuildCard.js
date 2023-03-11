@@ -15,6 +15,7 @@ function BuildCard(props) {
       case 'diamonds': return diamonds;
       case 'spades': return spades;
       case 'clubs': return clubs;
+      default: console.log("Invalid Suit");
     }
   }
 
@@ -195,7 +196,8 @@ function BuildCard(props) {
         </div>
       case 'J':
       case 'Q':
-      case 'K':  
+      case 'K':
+      default: console.log("Invalid Card Value");  
     }
   }
 
@@ -208,20 +210,17 @@ function BuildCard(props) {
       return fontColour;
     }
   }
-  // Motion div for animated card flip
-  // <motion.div className="card" style={props.rotationVal} animate={{ rotateX: 180 }} transition={{ duration: 0.1}}></motion.div>
-
-  const displayCardAnim = {
-    hidden: { x:-240, y:250, rotateX: 180, rotatez: 80 },
-    visible: { x:-100, y:110, rotateX: 0, rotateZ: props.rot,
-    transition: { delay: 0.1, duration: 0.3 }}
-  };
 
   return (
     <motion.div className="card"
-    variants={displayCardAnim}
+    variants={props.handAnim}
     initial="hidden"
-    animate="visible">
+    animate="visible"
+    whileHover={{
+      scale: 1.2,
+      transition: {duration: 0.1, type: "spring"}
+    }}
+    whileTap={{zIndex: 1}}>
       <div className="cardFace front">
         <div className="cardInfoTop">
           <p className="cardValueTop" style={getFontColour(props.suit)}>{props.value}</p>
