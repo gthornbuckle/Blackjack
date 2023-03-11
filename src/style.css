@@ -8,11 +8,11 @@ body {
 }
 
 .header h1 {
-margin: 0;
-padding-top: 10px;
-text-align: center;
-color: white;
-font-size: 3rem;
+    margin: 0;
+    padding-top: 10px;
+    text-align: center;
+    color: white;
+    font-size: 3rem;
 }
 
 .playArea{
@@ -20,21 +20,23 @@ font-size: 3rem;
     flex-direction: column;
 }
 
+.tableDeck{
+    position: absolute;
+    bottom: 100px;
+    left: 400px;
+}
+
 .currentHand{
     position: absolute;
-    width: 500px;
-    height: 400px;
-    left: 200px;
+    left: 0px;
     top: 400px;
-    transform: rotateZ(310deg);
+    transform: rotateZ(-50deg);
 }
 
 .card {
     width: 200px;
     height: 300px;
     position:absolute;
-    transform: translate(-50%, -50%);
-    transition: transform 0.5s;
     transform-style: preserve-3d;
     transform-origin: center 120%;
 

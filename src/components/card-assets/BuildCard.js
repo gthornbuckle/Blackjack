@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import "../../style.css";
 import hearts from "./hearts.svg"
@@ -210,9 +210,18 @@ function BuildCard(props) {
   }
   // Motion div for animated card flip
   // <motion.div className="card" style={props.rotationVal} animate={{ rotateX: 180 }} transition={{ duration: 0.1}}></motion.div>
- 
+
+  const displayCardAnim = {
+    hidden: { x:-240, y:250, rotateX: 180, rotatez: 80 },
+    visible: { x:-100, y:110, rotateX: 0, rotateZ: props.rot,
+    transition: { delay: 0.1, duration: 0.3 }}
+  };
+
   return (
-    <div className="card" style={props.rot}>
+    <motion.div className="card"
+    variants={displayCardAnim}
+    initial="hidden"
+    animate="visible">
       <div className="cardFace front">
         <div className="cardInfoTop">
           <p className="cardValueTop" style={getFontColour(props.suit)}>{props.value}</p>
@@ -227,7 +236,7 @@ function BuildCard(props) {
       <div className="cardFace back">
           <img src={cardBack} alt="card-back" draggable="false" />
       </div>
-    </div>
+    </motion.div>
   );
 }
 

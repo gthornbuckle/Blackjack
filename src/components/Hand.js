@@ -1,5 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
-import { motion } from 'framer-motion';
+import React from "react";
 import BuildCard from "./card-assets/BuildCard";
 import "../style.css";
 
@@ -11,12 +10,13 @@ function Hand(props) {
 
     const styleHand = () =>{
         r+=1;
-        handRot = {transform: `rotate(${handAngle/2 + handAngle/6 * r}deg)`};
+        handRot = handAngle/2 + handAngle/6 * r;
+        console.log(handRot);
         return handRot;
     }
 
     return (
-        <div>
+        <div >
             {deck.map(card => <BuildCard suit={card.suit}
             value={card.value}
             id={card.id}
@@ -26,6 +26,5 @@ function Hand(props) {
         </div>
     );
 }
-
 
 export default Hand;
