@@ -6,8 +6,8 @@ import cardBack from "./card-assets/cardback.svg"
 function DisplayDeck() {
     
     const deck = {
-        hidden: { y: 0 },
-        visible: { y: -100,
+        hidden: { y: -200 },
+        visible: { y: 0,
         transition: {
             delayChildren: 0.2,
             staggerChildren: 0.1
@@ -15,8 +15,8 @@ function DisplayDeck() {
     };
       
     const card = {
-        hidden: { y: 0 },
-        visible: { y: -300 }
+        hidden: { y: -300 },
+        visible: { y: 0 }
     };
 
     return (

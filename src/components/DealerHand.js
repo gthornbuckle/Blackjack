@@ -2,18 +2,8 @@ import React from "react";
 import BuildCard from "./card-assets/BuildCard";
 import "../style.css";
 
-function Hand(props) {
+function DealerHand(props) {
     let deck = props.dealtDeck;
-    let handRot = {};
-    let r = 0;
-    let handAngle = 60;
-
-    const styleHand = () =>{
-        r+=1;
-        handRot = handAngle/2 + handAngle/6 * r;
-        console.log(handRot);
-        return handRot;
-    }
 
     return (
         <div>
@@ -21,10 +11,9 @@ function Hand(props) {
             value={card.value}
             id={card.id}
             key={`${card.id}-${card.flipState}`}
-            flipped={card.flipState}
-            rot={styleHand()}/>)}
+            flipped={card.flipState}/>)}
         </div>
     );
 }
 
-export default Hand;
+export default DealerHand;
