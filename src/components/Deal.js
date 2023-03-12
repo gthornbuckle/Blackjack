@@ -1,21 +1,41 @@
 let dealerDeck =[];
 let playerDeck =[];
 
-function Deal(deck, dealer){
-    const randi = Math.floor(Math.random()*deck.length);
-    const dealtCard = deck.splice(randi, 1)[0];
+function Deal(deck, dealer, initial){
+    if(initial === true){
+        const dealtCard = deck.sort(() => 0.5 - Math.random()).splice(0, 2);
 
-    switch(dealer){
-        case true:
-            dealerDeck.push(dealtCard);
-            console.log(`Dealer dealt: ${dealtCard}`);
-            break;
-        case false:
-            playerDeck.push(dealtCard);
-            console.log(`Player dealt: ${dealtCard}`);
-            break;
-        default:
-            return;
+        console.log("Initial Deal");
+        console.log(dealtCard);
+    
+        switch(dealer){
+            case true:
+                dealerDeck.push(dealtCard[0], dealtCard[1]);
+                break;
+            case false:
+                playerDeck.push(dealtCard[0], dealtCard[1]);
+                break;
+            default:
+                return;
+        }
+
+    }else{
+        const randi = Math.floor(Math.random()*deck.length);
+        const dealtCard = deck.splice(randi, 1)[0];
+
+        console.log("Deal");
+        console.log(dealtCard);
+    
+        switch(dealer){
+            case true:
+                dealerDeck.push(dealtCard);
+                break;
+            case false:
+                playerDeck.push(dealtCard);
+                break;
+            default:
+                return;
+        }
     }
 
     const currentDecks =[];

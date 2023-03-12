@@ -21,6 +21,8 @@ body {
 }
 
 .table{
+    display: flex;
+    justify-content: center;
     margin: 10px;
     height: 800px;
     border: solid rgb(177, 154, 23);
@@ -35,13 +37,27 @@ body {
     left: 5%;
 }
 
+.scoreCounter{
+    padding-top:60px;
+    width: 220px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+.scoreInfo{
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .deckZone{
     position: absolute;
     top: 5%;
     left: 10%;
     height: 320px;
     width: 220px;
-    border: solid rgb(177, 154, 23);
+    border: dotted rgb(177, 154, 23);
     border-radius: 10px;
 }
 
@@ -51,7 +67,7 @@ body {
     right: 10%;
     height: 320px;
     width: 220px;
-    border: solid rgb(177, 154, 23);
+    border: dotted rgb(177, 154, 23);
     border-radius: 10px;
 }
 

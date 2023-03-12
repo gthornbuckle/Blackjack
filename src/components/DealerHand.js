@@ -4,21 +4,33 @@ import "../style.css";
 
 function DealerHand(props) {
     let deck = props.dealtDeck;
+    let xVal = -10;
 
-    const dealDealerAnim = { 
-        hidden: { x:"-65vw", y:"35%", rotateY:180},
-        visible: { x:"5%", y:"35%", rotateY:0,
-        transition: { delay: 0.1, duration: 0.3 }}
+    const xShift = () => {
+        xVal+=10;
+        return `${xVal}%`;
     }
+
+    const dealDealerAnim = (i) =>{
+        if(i === 0){
+            return {hidden: { x:"-65vw", y:"35%", rotateY:180},
+            visible: { x:xShift(), y:"35%", rotateY: 180,
+            transition: { delay: 0.1, duration: 0.3 }}}
+        }else{
+            return {hidden: { x:"-65vw", y:"35%", rotateY:180},
+            visible: { x:xShift(), y:"35%", rotateY: 0,
+            transition: { delay: 0.1, duration: 0.3 }}
+        }
+    }};
 
     return (
         <div>
-            {deck.map(card => <BuildCard suit={card.suit}
+            {deck.map((card, i) => <BuildCard suit={card.suit}
             value={card.value}
             id={card.id}
             key={`${card.id}-${card.flipState}`}
             flipped={card.flipState}
-            handAnim={dealDealerAnim}/>)}
+            handAnim={dealDealerAnim(i)}/>)}
         </div>
     );
 }
