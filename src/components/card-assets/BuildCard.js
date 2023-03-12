@@ -219,8 +219,7 @@ function BuildCard(props) {
     whileHover={{
       scale: 1.2,
       transition: {duration: 0.1, type: "spring"}
-    }}
-    whileTap={{zIndex: 1}}>
+    }}>
       <div className="cardFace front">
         <div className="cardInfoTop">
           <p className="cardValueTop" style={getFontColour(props.suit)}>{props.value}</p>

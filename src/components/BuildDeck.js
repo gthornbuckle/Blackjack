@@ -14,6 +14,24 @@ function BuildDeck() {
         this.flipState = false;
       }else{ this.flipState = true}
     }
+
+    getLetterValue(value){
+      if (isNaN(value)){
+        switch(value){
+          case 'A':
+            return 1;
+          case 'J':
+            return 10;
+          case 'Q':
+            return 10;
+          case 'K':
+            return 10;
+          default: return;
+        }
+      }else{
+        return value;
+      }
+    }
   }
 
   const deck = [];

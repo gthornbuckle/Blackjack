@@ -36,7 +36,9 @@ function DisplayDeck() {
         animate="visible"
         > 
         {[...Array(20).keys()].map((index) => (
-            <motion.div className="card" key={index} variants={cardStyle()}>
+            <motion.div className="card" key={index} variants={cardStyle()} 
+            whileHover={{scale: 1.2, transition: {duration: 0.1, type: "spring"}}}
+            >
                 <div className="cardFace back" style={{backfaceVisibility: "visible"}}>
                     <img src={cardBack} alt="card-back" draggable="false" />
                 </div>

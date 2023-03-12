@@ -11,10 +11,13 @@ const fullDeck = BuildDeck();
 let remainingDeck = fullDeck;
 let dealerHand = [];
 let currentHand = [];
+let dealerScore = 0;
+let playerScore = 0;
 
 function Game() {
   const [hasRender, setRender] = useState(false);
   const onShow = React.useCallback(() => setRender(true), []);
+
   const [dealerHandCount, setDealerhandCount] = useState(0);
   const [playerHandCount, setPlayerHandCount] = useState(0);
 
@@ -34,6 +37,7 @@ function Game() {
     remainingDeck = currentDecks[0];
     dealerHand = currentDecks[1];
 
+    updateScore(dealerHand, 'Dealer');
     setDealerhandCount(dealerHandCount+1);
   }
 
@@ -42,7 +46,27 @@ function Game() {
     remainingDeck = currentDecks[0];
     currentHand = currentDecks[2];
 
+    updateScore(currentHand, 'Player');
     setPlayerHandCount(playerHandCount+1);
+  }
+
+  const updateScore = (hand, handType) =>{
+    switch(handType){
+      case 'Dealer':
+        dealerScore = hand.reduce((acc, card, i) => {
+          if (i >= 1){
+            return acc + card.getLetterValue(card.value);
+          }
+          else{
+            return 0;
+          }
+        }, 0);
+        break;
+      case 'Player':
+        playerScore = hand.reduce((acc, card) => {return acc + card.getLetterValue(card.value);}, 0);
+        break;
+      default: return;
+    }
   }
 
   return (
@@ -54,27 +78,34 @@ function Game() {
         <div className="scoreCounter">
           <div className="scoreInfo">
             <h2>Dealer</h2>
-            <p className="currentScore">21</p>
-            <svg height="80" width="80" viewBox="0 0 20 20">
-              <circle r="10" cx="10" cy="10" fill="rgba(0, 0, 0, 0.3)" />
-              <circle r="5" cx="10" cy="10" fill="transparent"
-                      stroke="tomato"
-                      stroke-width="10"
-                      stroke-dasharray="calc(25 * 31.4 / 100) 31.4"
-                      transform="rotate(-90) translate(-20)" />
-            </svg>
+            <motion.svg width="100" height="100" viewBox="0 0 20 20" initial="hidden" animate="visible">
+              <motion.circle
+                cx="10"
+                cy="10"
+                r="9"
+                stroke="rgb(22, 165, 165)"
+                initial={{opacity: 0, pathLength: 0}}
+                animate={{opacity: Math.round(dealerScore), pathLength: Math.round((dealerScore/21)*100)/100}}
+                transition={{ type: 'spring', bounce: 0.5}}
+              />
+              <text className="currentScore" x="50%" y="55%" fill="white" dominantBaseline="middle" textAnchor="middle">{dealerScore}</text> 
+            </motion.svg>
           </div>
           <div className="scoreInfo">
             <h2>Player</h2>
-            <p className="currentScore">21</p>
-            <svg height="80" width="80" viewBox="0 0 20 20">
-              <circle r="10" cx="10" cy="10" fill="rgba(0, 0, 0, 0.3)" />
-              <circle r="5" cx="10" cy="10" fill="transparent"
-                      stroke="tomato"
-                      stroke-width="10"
-                      stroke-dasharray="calc(25 * 31.4 / 100) 31.4"
-                      transform="rotate(-90) translate(-20)" />
-            </svg>
+            <motion.svg width="100" height="100" viewBox="0 0 20 20" initial="hidden" animate="visible">
+              <motion.circle
+                cx="10"
+                cy="10"
+                r="9"
+                stroke="rgb(22, 165, 165)"
+                initial={{opacity: 0, pathLength: 0}}
+                animate={{opacity: Math.round(playerScore), pathLength: Math.round((playerScore/21)*100)/100}}
+                transition={{ type: 'spring', bounce: 0.5}}
+              />
+              <text className="currentScore" x="50%" y="55%" fill="white" dominantBaseline="middle" textAnchor="middle">{playerScore}</text> 
+            </motion.svg>
+
           </div>
         </div>
         <div className="deckZone">
