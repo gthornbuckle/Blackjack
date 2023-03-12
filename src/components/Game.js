@@ -54,6 +54,7 @@ function Game() {
         <div className="scoreCounter">
           <div className="scoreInfo">
             <h2>Dealer</h2>
+            <p className="currentScore">21</p>
             <svg height="80" width="80" viewBox="0 0 20 20">
               <circle r="10" cx="10" cy="10" fill="rgba(0, 0, 0, 0.3)" />
               <circle r="5" cx="10" cy="10" fill="transparent"
@@ -65,6 +66,7 @@ function Game() {
           </div>
           <div className="scoreInfo">
             <h2>Player</h2>
+            <p className="currentScore">21</p>
             <svg height="80" width="80" viewBox="0 0 20 20">
               <circle r="10" cx="10" cy="10" fill="rgba(0, 0, 0, 0.3)" />
               <circle r="5" cx="10" cy="10" fill="transparent"
@@ -76,13 +78,13 @@ function Game() {
           </div>
         </div>
         <div className="deckZone">
-          <p className="tableLabel">Deck</p>
+          <p className="tableLabel"></p>
           <div className="tableDeck">
             {hasRender && <DisplayDeck />}
           </div>
         </div>
         <div className="dealerHandZone">
-          <p className="tableLabel">DealerHand</p>
+          <p className="tableLabel"></p>
           <div className="dealerHand">
             <DealerHand dealtDeck={dealerHand}/>
           </div>
