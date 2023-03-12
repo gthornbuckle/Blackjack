@@ -20,6 +20,7 @@ function Game() {
 
   const [dealerHandCount, setDealerhandCount] = useState(0);
   const [playerHandCount, setPlayerHandCount] = useState(0);
+  const [playerStanding, setStanding] = useState(false);
 
   const initialiseGame = () =>{
     onShow();
@@ -65,14 +66,21 @@ function Game() {
       case 'Player':
         playerScore = hand.reduce((acc, card) => {return acc + card.getLetterValue(card.value);}, 0);
         break;
+      case 'PlayerStanding':
+        dealerScore = hand.reduce((acc, card) => {return acc + card.getLetterValue(card.value);}, 0);
+        break;
       default: return;
     }
+  }
+
+  const standButtonPressed = () =>{
+    updateScore(dealerHand, 'PlayerStanding');
+    setStanding(true);
   }
 
   return (
     <div className="playArea">
       <button onClick={initialiseGame}>Start</button>
-      <button onClick={ () => {updatePlayerHand(remainingDeck, false)}}>Hit me</button>
       <button onClick={ () => {updateDealerHand(remainingDeck, false)}}>Deal for dealer</button>
       <div className="table">
         <div className="scoreCounter">
@@ -117,7 +125,7 @@ function Game() {
         <div className="dealerHandZone">
           <p className="tableLabel"></p>
           <div className="dealerHand">
-            <DealerHand dealtDeck={dealerHand}/>
+            <DealerHand dealtDeck={dealerHand} playerStanding={playerStanding}/>
           </div>
         </div>
         <div className="playerHandZone">
@@ -125,6 +133,18 @@ function Game() {
             <Hand dealtDeck={currentHand} />
           </div>
         </div>
+        <motion.button className="gameButton hit" 
+        onClick={ () => {updatePlayerHand(remainingDeck, false)}}
+        whileHover={{scale:1.1}}
+        whileTap={{scale: 0.9}}
+        transition={{ type: 'spring', stiffness: 500}}
+        >Hit</motion.button>
+        <motion.button className="gameButton stand" 
+        onClick={ () => {standButtonPressed()}}
+        whileHover={{scale: 1.1}}
+        whileTap={{scale: 0.9}}
+        transition={{ type: 'spring', stiffness: 500}}
+        >Stand</motion.button>
       </div>
     </div>
   );

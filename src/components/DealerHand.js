@@ -4,6 +4,7 @@ import "../style.css";
 
 function DealerHand(props) {
     let deck = props.dealtDeck;
+    let playerStanding = props.playerStanding;
     let xVal = -10;
     let rotVal = 0;
 
@@ -17,8 +18,8 @@ function DealerHand(props) {
         return rotVal;
     }
 
-    const dealDealerAnim = (i) =>{
-        if(i === 0){
+    const dealDealerAnim = i =>{
+        if(i === 0 && playerStanding === false){
             return {hidden: { x:"-65vw", y:"35%", rotateY:180, rotateZ:0},
             visible: { x:xShift(), y:"35%", rotateY: 180, rotateZ: rotShift(),
             transition: { delay: 0.1, duration: 0.3 }}}
