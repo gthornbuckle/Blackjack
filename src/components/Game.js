@@ -20,7 +20,8 @@ function Game() {
   const [renderGame, setRender] = useState(false);
   const startGame = React.useCallback(() => setRender(true), []);
   const [endScreen, setEndScreen] = useState(false);
-  const endGame = React.useCallback(() => setEndScreen(true), []);
+  const displayModal = React.useCallback(() => setEndScreen(true), []);
+  const hideModal = React.useCallback(() => setEndScreen(false), []);
 
   const [dealerHandCount, setDealerhandCount] = useState(0);
   const [playerHandCount, setPlayerHandCount] = useState(0);
@@ -34,7 +35,11 @@ function Game() {
 
   const releaseGame = (winner) =>{
     victory = winner;
-    endGame();
+    displayModal();
+  }
+
+  const exitGame = () =>{
+    hideModal();
   }
 
   useEffect(() =>{
@@ -126,7 +131,7 @@ function Game() {
 
   return (
     <div className="playArea">
-      {endScreen && <EndScreen msg={victory}/>}
+      {endScreen && <EndScreen msg={victory} houseTotal={dealerScore} playerTotal={playerScore} btnExit={exitGame}/>}
       <div className="table">
         <div className="scoreCounter">
           <div className="scoreInfo">
@@ -191,7 +196,7 @@ function Game() {
         transition={{ type: 'spring', stiffness: 500}}
         >Stand</motion.button>
       </div>
-      <button onClick={initialiseGame}>Start</button>
+      <button onClick={displayModal}>Start</button>
     </div>
   );
 }
