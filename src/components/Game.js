@@ -6,6 +6,7 @@ import Deal from "./Deal";
 import "../style.css";
 import BuildDeck from "./BuildDeck";
 import  DisplayDeck from "./DisplayDeck";
+import EndScreen from "./EndScreen";
 
 const fullDeck = BuildDeck();
 let remainingDeck = fullDeck;
@@ -13,19 +14,27 @@ let dealerHand = [];
 let currentHand = [];
 let dealerScore = 0;
 let playerScore = 0;
+let victory = '';
 
 function Game() {
-  const [hasRender, setRender] = useState(false);
-  const onShow = React.useCallback(() => setRender(true), []);
+  const [renderGame, setRender] = useState(false);
+  const startGame = React.useCallback(() => setRender(true), []);
+  const [endScreen, setEndScreen] = useState(false);
+  const endGame = React.useCallback(() => setEndScreen(true), []);
 
   const [dealerHandCount, setDealerhandCount] = useState(0);
   const [playerHandCount, setPlayerHandCount] = useState(0);
   const [playerStanding, setStanding] = useState(false);
 
   const initialiseGame = () =>{
-    onShow();
-    setTimeout(() => {updateDealerHand(remainingDeck, true);}, 3400);
+    startGame();
+    setTimeout(() => {updateDealerHand(remainingDeck, true, 'Dealer');}, 3400);
     setTimeout(() => {updatePlayerHand(remainingDeck, true);}, 3800); 
+  }
+
+  const releaseGame = (winner) =>{
+    victory = winner;
+    endGame();
   }
 
   useEffect(() =>{
@@ -33,12 +42,12 @@ function Game() {
     console.log(`Player has: ${playerHandCount} card(s).`);
   }, [dealerHandCount, playerHandCount]);
 
-  const updateDealerHand = (remainingDeck, initial) => {
+  const updateDealerHand = (remainingDeck, initial, handType) => {
     const currentDecks = Deal(remainingDeck, true, initial);
     remainingDeck = currentDecks[0];
     dealerHand = currentDecks[1];
 
-    updateScore(dealerHand, 'Dealer');
+    updateScore(dealerHand, handType);
     setDealerhandCount(dealerHandCount+1);
   }
 
@@ -52,6 +61,26 @@ function Game() {
   }
 
   const updateScore = (hand, handType) =>{
+    const aceHandler = hand =>{
+      const i = hand.findIndex(card => card.value === 'A');
+      let newScore = 0;
+
+        if(i > -1){
+          const removeAce = hand.slice();
+          removeAce.splice(i, 1);
+
+          const tempScore = removeAce.reduce((acc, card) => {return acc + card.getLetterValue(card.value);}, 0);
+          if((tempScore+11) > 21){
+            newScore = tempScore+1;
+          }else{
+            newScore = tempScore+11;
+          }
+        return newScore;
+        }else{
+          return hand.reduce((acc, card) => {return acc + card.getLetterValue(card.value);}, 0);
+        }    
+    }
+    
     switch(handType){
       case 'Dealer':
         dealerScore = hand.reduce((acc, card, i) => {
@@ -64,10 +93,10 @@ function Game() {
         }, 0);
         break;
       case 'Player':
-        playerScore = hand.reduce((acc, card) => {return acc + card.getLetterValue(card.value);}, 0);
+        playerScore = aceHandler(hand);
         break;
       case 'PlayerStanding':
-        dealerScore = hand.reduce((acc, card) => {return acc + card.getLetterValue(card.value);}, 0);
+        dealerScore = aceHandler(hand); 
         break;
       default: return;
     }
@@ -75,13 +104,29 @@ function Game() {
 
   const standButtonPressed = () =>{
     updateScore(dealerHand, 'PlayerStanding');
+    checkWinCondition();
     setStanding(true);
+  }
+
+  const checkWinCondition = () =>{
+    if(dealerScore > 21){
+      console.log("Player Win.");
+      releaseGame('Player');
+    }else if(playerScore > dealerScore && dealerScore >= 17){
+      console.log("Player Win.");
+      releaseGame('Player');
+    }else if(playerScore < dealerScore && dealerScore >=17){
+      console.log("House Win.");
+      releaseGame('House');
+    }else{
+      updateDealerHand(remainingDeck, false, 'PlayerStanding');
+      checkWinCondition();
+    }
   }
 
   return (
     <div className="playArea">
-      <button onClick={initialiseGame}>Start</button>
-      <button onClick={ () => {updateDealerHand(remainingDeck, false)}}>Deal for dealer</button>
+      {endScreen && <EndScreen msg={victory}/>}
       <div className="table">
         <div className="scoreCounter">
           <div className="scoreInfo">
@@ -119,7 +164,7 @@ function Game() {
         <div className="deckZone">
           <p className="tableLabel"></p>
           <div className="tableDeck">
-            {hasRender && <DisplayDeck />}
+            {renderGame && <DisplayDeck />}
           </div>
         </div>
         <div className="dealerHandZone">
@@ -146,6 +191,7 @@ function Game() {
         transition={{ type: 'spring', stiffness: 500}}
         >Stand</motion.button>
       </div>
+      <button onClick={initialiseGame}>Start</button>
     </div>
   );
 }

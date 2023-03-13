@@ -1,10 +1,11 @@
 :root{
-    --textColour: rgb(214, 125, 41);
+    --textColour: rgb(214, 96, 41);
 }
 
 body {
     background-color: rgb(8, 65, 65);
     font-family: 'Rockwell';
+    background-attachment: fixed;
 }
 
 .header {
@@ -228,3 +229,22 @@ circle{
     height: 240px;
 }
 
+.endMessageContainer{
+    height: 30%;
+    width: 40%;
+    top: 20%;
+    left: 30%;
+    position: absolute;
+    z-index: 1;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: saturate(200%) blur(8px);
+    border-radius: 10px;
+}
+
+.endMessageContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}

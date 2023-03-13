@@ -19,7 +19,7 @@ function BuildDeck() {
       if (isNaN(value)){
         switch(value){
           case 'A':
-            return 1;
+              return 11;
           case 'J':
             return 10;
           case 'Q':
