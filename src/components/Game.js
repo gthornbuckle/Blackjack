@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import DealerHand from "./DealerHand";
 import Hand from "./PlayerHand";
@@ -19,6 +19,7 @@ let victory = '';
 function Game() {
   const [renderGame, setRender] = useState(false);
   const startGame = React.useCallback(() => setRender(true), []);
+  const endGame = React.useCallback(() => setRender(false), []);
   const [endScreen, setEndScreen] = useState(false);
   const displayModal = React.useCallback(() => setEndScreen(true), []);
   const hideModal = React.useCallback(() => setEndScreen(false), []);
@@ -29,23 +30,31 @@ function Game() {
 
   const initialiseGame = () =>{
     startGame();
-    setTimeout(() => {updateDealerHand(remainingDeck, true, 'Dealer');}, 3400);
-    setTimeout(() => {updatePlayerHand(remainingDeck, true);}, 3800); 
+    setTimeout(() => {updateDealerHand(remainingDeck, true, 'Dealer');}, 2800);
+    setTimeout(() => {updatePlayerHand(remainingDeck, true);}, 3200); 
   }
 
   const releaseGame = (winner) =>{
     victory = winner;
     displayModal();
+    endGame();
+  }
+
+  const newRound = () =>{
+    hideModal();
+    remainingDeck = fullDeck;
+    dealerHand = [];
+    currentHand = [];
+    dealerScore = 0;
+    playerScore = 0;
+    victory = '';
+    setStanding(false);
+    initialiseGame();
   }
 
   const exitGame = () =>{
     hideModal();
   }
-
-  useEffect(() =>{
-    console.log(`Dealer has: ${dealerHandCount} card(s).`);
-    console.log(`Player has: ${playerHandCount} card(s).`);
-  }, [dealerHandCount, playerHandCount]);
 
   const updateDealerHand = (remainingDeck, initial, handType) => {
     const currentDecks = Deal(remainingDeck, true, initial);
@@ -107,6 +116,13 @@ function Game() {
     }
   }
 
+  const checkPlayerHand = () =>{
+    updatePlayerHand(remainingDeck, false);
+    if(playerScore > 21){
+      checkWinCondition();
+    }
+  }
+
   const standButtonPressed = () =>{
     updateScore(dealerHand, 'PlayerStanding');
     checkWinCondition();
@@ -115,13 +131,12 @@ function Game() {
 
   const checkWinCondition = () =>{
     if(dealerScore > 21){
-      console.log("Player Win.");
       releaseGame('Player');
     }else if(playerScore > dealerScore && dealerScore >= 17){
-      console.log("Player Win.");
       releaseGame('Player');
     }else if(playerScore < dealerScore && dealerScore >=17){
-      console.log("House Win.");
+      releaseGame('House');
+    }else if(playerScore > 21){
       releaseGame('House');
     }else{
       updateDealerHand(remainingDeck, false, 'PlayerStanding');
@@ -131,7 +146,8 @@ function Game() {
 
   return (
     <div className="playArea">
-      {endScreen && <EndScreen msg={victory} houseTotal={dealerScore} playerTotal={playerScore} btnExit={exitGame}/>}
+      {endScreen && <EndScreen msg={victory} houseTotal={dealerScore} playerTotal={playerScore} 
+      btnReplay={newRound} btnExit={exitGame}/>}
       <div className="table">
         <div className="scoreCounter">
           <div className="scoreInfo">
@@ -184,7 +200,7 @@ function Game() {
           </div>
         </div>
         <motion.button className="gameButton hit" 
-        onClick={ () => {updatePlayerHand(remainingDeck, false)}}
+        onClick={checkPlayerHand}
         whileHover={{scale:1.1}}
         whileTap={{scale: 0.9}}
         transition={{ type: 'spring', stiffness: 500}}
@@ -196,7 +212,7 @@ function Game() {
         transition={{ type: 'spring', stiffness: 500}}
         >Stand</motion.button>
       </div>
-      <button onClick={displayModal}>Start</button>
+      <button onClick={initialiseGame}>Start</button>
     </div>
   );
 }

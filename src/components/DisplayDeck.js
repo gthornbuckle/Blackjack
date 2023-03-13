@@ -35,7 +35,7 @@ function DisplayDeck() {
         initial="hidden"
         animate="visible"
         > 
-        {[...Array(20).keys()].map((index) => (
+        {[...Array(15).keys()].map((index) => (
             <motion.div className="card" key={index} variants={cardStyle()} 
             whileHover={{scale: 1.2, transition: {duration: 0.1, type: "spring"}}}
             >
