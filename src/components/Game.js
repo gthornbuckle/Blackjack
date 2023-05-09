@@ -212,7 +212,13 @@ function Game() {
         transition={{ type: 'spring', stiffness: 500}}
         >Stand</motion.button>
       </div>
-      <button onClick={initialiseGame}>Start</button>
+      <motion.button className="gameButton"
+        style={{alignSelf: "center"}}
+        onClick={initialiseGame}
+        whileHover={{scale: 1.1}}
+        whileTap={{scale: 0.9}}
+        transition={{ type: 'spring', stiffness: 500}}
+      >Start</motion.button>
     </div>
   );
 }
